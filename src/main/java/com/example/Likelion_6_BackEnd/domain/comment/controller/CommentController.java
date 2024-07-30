@@ -17,8 +17,5 @@ public class CommentController {
     private final CommentService commentService;
     @PostMapping("/comment/create")
     public ResponseEntity<?> create(@RequestBody CommentRequestDTO commentRequestDTO){
-        // 유저 아이디
-        // 레시피 아이디
-        CommentResponseDTO result = commentService.create(commentRequestDTO,)
     }
 }
