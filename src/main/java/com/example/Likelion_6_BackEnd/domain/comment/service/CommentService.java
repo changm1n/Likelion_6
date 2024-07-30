@@ -31,7 +31,7 @@ public class CommentService {
         Integer score = commentRequestDTO.getScore();
         if(recipe1.isPresent()){
             Recipe recipe = recipe1.get();
-            Comment comment = new Comment(commentRequestDTO.getComment(), recipe ,userId,imgUrl);
+            Comment comment = new Comment(commentRequestDTO.getComment(), commentRequestDTO.getScore() ,recipe ,userId,imgUrl);
             commentRepository.save(comment);
             return new CommentResponseDTO(comment, score);
         }

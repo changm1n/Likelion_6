@@ -13,13 +13,15 @@ public class Comment {
     private Long userId;
     private String comment;
     private String imgUrl;
+    private Integer score;
     @ManyToOne
     private Recipe recipe;
 
     protected Comment(){}
 
-    public Comment(String comment, Recipe recipe,Long userId, String imgUrl){
+    public Comment(String comment, Integer score, Recipe recipe,Long userId, String imgUrl){
         this.comment = comment;
+        this.score = score;
         this.recipe = recipe;
         this.userId = userId;
         this.imgUrl = imgUrl;
