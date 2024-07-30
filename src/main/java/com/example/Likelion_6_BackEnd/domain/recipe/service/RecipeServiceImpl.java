@@ -22,9 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @Transactional(readOnly = true)
@@ -89,8 +87,22 @@ public class RecipeServiceImpl implements RecipeService{
         return new RecipeResponseDTO.RecipeCreateDTO(recipe,imgUrlList,recipeCreateDTO.getIngredient(),recipeList);
     }
 
-    //게시글 조회
-
+    //게시글 조회(하나)
+    public RecipeResponseDTO.RecipeCreateDTO mainRecipe(Long recipeId){
+        Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
+        String contentCombine = recipeRepository.findContentByRecipeId(recipeId);
+        if(recipeOptional.isPresent()){
+            Recipe recipe = recipeOptional.get();
+            List<String> imgUrl = imageRepository.findImageUrlsByRecipeId(recipeId);
+            List<String> content = Arrays.asList(contentCombine.split("\n"));
+            List<String> ingredientList = recipeRepository.findIngredientNamesByRecipeId(recipeId);
+            log.info(recipeId + "번을 조회합니다.");
+            return new RecipeResponseDTO.RecipeCreateDTO(recipe,imgUrl,ingredientList,content);
+        }
+        else{
+            return null;
+        }
+    }
     @Override
     public String kcal(String menu){
         return null;

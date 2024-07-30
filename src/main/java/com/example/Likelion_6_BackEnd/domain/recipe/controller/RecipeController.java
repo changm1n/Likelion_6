@@ -6,10 +6,7 @@ import com.example.Likelion_6_BackEnd.domain.recipe.service.RecipeServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -18,10 +15,15 @@ import java.io.IOException;
 @Slf4j
 public class RecipeController {
     private final RecipeServiceImpl recipeService;
-
     @PostMapping("/board/create")
     public ResponseEntity<?> Create(@ModelAttribute RecipeRequestDTO.RecipeCreateDTO recipeCreateDTO) throws IOException {
         RecipeResponseDTO.RecipeCreateDTO result = recipeService.create(recipeCreateDTO);
+        return ResponseEntity.ok().body(result);
+    }
+    // 메인레시피 조회
+    @GetMapping("/board/{recipeId}")
+    public ResponseEntity<?> mainRecipe(@PathVariable Long recipeId){
+        RecipeResponseDTO.RecipeCreateDTO result = recipeService.mainRecipe(recipeId);
         return ResponseEntity.ok().body(result);
     }
 }
