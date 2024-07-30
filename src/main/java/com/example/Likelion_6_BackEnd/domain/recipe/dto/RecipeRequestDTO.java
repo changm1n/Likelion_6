@@ -32,6 +32,7 @@ public class RecipeRequestDTO {
         private Integer level;
         private Integer servings;
         private Integer cost;
-
+        private List<String> content;
+        private Integer requiredTime;
     }
 }

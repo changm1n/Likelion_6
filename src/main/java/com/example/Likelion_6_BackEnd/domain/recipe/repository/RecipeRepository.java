@@ -7,9 +7,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
     @Query("SELECT r FROM Recipe r WHERE NOT EXISTS (" +
             "SELECT ri FROM RecipeIngredient ri WHERE ri.recipe = r AND ri.ingredient IN :ingredients)")
     List<Recipe> findAllWithoutIngredients(@Param("ingredients") List<Ingredient> ingredients);
+    Optional<Recipe> findById(Long recipeId);
 }
