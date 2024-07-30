@@ -21,6 +21,7 @@ public class RecipeResponseDTO {
         private List<String> content;
         private Integer requiredTime;
         private String kcal;
+        private Double average;
 
         public RecipeCreateDTO(Recipe recipe,List<String> recipeImages,List<String> ingredient,List<String> content){
             this.recipeId = recipe.getId();
@@ -34,6 +35,7 @@ public class RecipeResponseDTO {
             this.content = content;
             this.requiredTime = recipe.getRequiredTime();
             this.kcal = recipe.getKcal();
+            this.average = recipe.getAverage();
         }
     }
 }

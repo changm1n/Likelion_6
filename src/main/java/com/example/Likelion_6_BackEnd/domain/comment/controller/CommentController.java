@@ -24,7 +24,7 @@ public class CommentController {
     //후기 생성
     @PostMapping("/board/{recipeId}/comment")
     public ResponseEntity<?> create(@RequestBody CommentRequestDTO commentRequestDTO, @PathVariable Long recipeId, HttpSession httpSession) throws IOException {
-        Long userId = (Long) httpSession.getAttribute("loginId");
+        String userId = (String) httpSession.getAttribute("loginId");
         CommentResponseDTO result = commentService.create(commentRequestDTO,userId,recipeId);
         return ResponseEntity.ok().body(result);
     }

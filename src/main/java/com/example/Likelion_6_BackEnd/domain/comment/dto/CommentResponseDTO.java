@@ -5,15 +5,15 @@ import lombok.Data;
 
 @Data
 public class CommentResponseDTO {
-    private Long userId;
+    private String nickname;
     private String comment;
     private Integer score;
     private String image;
 
-    public CommentResponseDTO(Comment comment,Integer score){
-        this.userId = comment.getUserId();
+    public CommentResponseDTO(Comment comment){
+        this.nickname = comment.getNickname();
         this.comment = comment.getComment();
-        this.score = score;
+        this.score = comment.getScore();
         this.image = comment.getImgUrl();
     }
 }

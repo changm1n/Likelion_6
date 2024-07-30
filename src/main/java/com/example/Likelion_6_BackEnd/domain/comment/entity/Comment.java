@@ -10,7 +10,7 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long userId;
+    private String nickname;
     private String comment;
     private String imgUrl;
     private Integer score;
@@ -19,11 +19,11 @@ public class Comment {
 
     protected Comment(){}
 
-    public Comment(String comment, Integer score, Recipe recipe,Long userId, String imgUrl){
+    public Comment(String comment, Integer score, Recipe recipe,String userId, String imgUrl){
         this.comment = comment;
         this.score = score;
         this.recipe = recipe;
-        this.userId = userId;
+        this.nickname = userId;
         this.imgUrl = imgUrl;
     }
 }

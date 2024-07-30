@@ -2,6 +2,8 @@ package com.example.Likelion_6_BackEnd.domain.recipe.service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.example.Likelion_6_BackEnd.domain.comment.entity.Comment;
+import com.example.Likelion_6_BackEnd.domain.comment.service.CommentService;
 import com.example.Likelion_6_BackEnd.domain.image.entity.Image;
 import com.example.Likelion_6_BackEnd.domain.image.repository.ImageRepository;
 import com.example.Likelion_6_BackEnd.domain.recipe.dto.RecipeRequestDTO;
@@ -34,6 +36,8 @@ public class RecipeServiceImpl implements RecipeService{
     private final RecipeIngredientRepository recipeIngredientRepository;
     private final ImageRepository imageRepository;
 
+    private final CommentService commentService;
+
     private final AmazonS3 amazonS3;
     @Value("yoribogo")
     private String bucket;
@@ -50,7 +54,9 @@ public class RecipeServiceImpl implements RecipeService{
         String combineString = String.join("\n", recipeList);
         //api로 칼로리 가져오기
         String kcal = "abc";
-        Recipe recipe = new Recipe(recipe1, kcal, combineString);
+        // 평점 가져오기
+        Double average = 0.0;
+        Recipe recipe = new Recipe(recipe1, kcal, combineString,average);
         recipeRepository.save(recipe);
         //재료 저장
         List<RecipeIngredient> recipeIngredients = new ArrayList<>();
@@ -82,6 +88,8 @@ public class RecipeServiceImpl implements RecipeService{
         }
         return new RecipeResponseDTO.RecipeCreateDTO(recipe,imgUrlList,recipeCreateDTO.getIngredient(),recipeList);
     }
+
+    //게시글 조회
 
     @Override
     public String kcal(String menu){

@@ -20,6 +20,7 @@ public class Recipe extends BaseEntity {
     private Integer servings; //인분
     private String kcal; // 칼로리
     private String intro;
+    private Double average;
     @OneToMany
     private List<RecipeIngredient> recipeIngredientList;
     /*
@@ -36,7 +37,7 @@ public class Recipe extends BaseEntity {
         this.cost = cost;
         this.requiredTime = requiredTime;
     }
-    public Recipe(Recipe recipe, String kcal, String content){
+    public Recipe(Recipe recipe, String kcal, String content, Double average){
         this.title = recipe.getTitle();
         this.intro = recipe.getIntro();
         this.level = recipe.getLevel();
@@ -45,5 +46,6 @@ public class Recipe extends BaseEntity {
         this.requiredTime = recipe.getRequiredTime();
         this.content = content;
         this.kcal = kcal;
+        this.average = average;
     }
 }
