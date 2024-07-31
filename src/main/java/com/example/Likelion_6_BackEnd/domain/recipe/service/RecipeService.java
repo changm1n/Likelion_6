@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public interface RecipeService {
     //레시피 생성
-    RecipeResponseDTO.RecipeCreateDTO create(RecipeRequestDTO.RecipeCreateDTO recipeCreateDTO) throws IOException;
+    RecipeResponseDTO.RecipeCreateDTO create(RecipeRequestDTO.RecipeCreateDTO recipeCreateDTO,String userEmail) throws IOException;
     //레시피 수정
 
     //레시피 삭제

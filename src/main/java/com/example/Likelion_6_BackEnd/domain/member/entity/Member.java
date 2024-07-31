@@ -16,7 +16,7 @@ public class Member {
     private Long id;
 
     @Column(unique = true, nullable = false)
-    private String Userid;
+    private String userEmail;
 
     @Column(nullable = false)
     private String password;
@@ -27,7 +27,7 @@ public class Member {
     public static Member toMember(MemberDto memberDto) {
         Member member = new Member();
 
-        member.Userid = memberDto.getUserid();
+        member.userEmail = memberDto.getUserEmail();
         member.password = memberDto.getPassword();
         member.nickname = memberDto.getNickname();
 

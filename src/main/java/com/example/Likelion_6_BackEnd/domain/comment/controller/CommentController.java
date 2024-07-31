@@ -21,10 +21,11 @@ public class CommentController {
 
     //후기 생성
     @PostMapping("/board/{recipeId}/comment")
-    public ResponseEntity<?> create(@RequestBody CommentRequestDTO commentRequestDTO, @PathVariable Long recipeId, HttpSession httpSession) throws IOException {
-        String userId = (String) httpSession.getAttribute("loginId");
+    public ResponseEntity<?> create(@ModelAttribute CommentRequestDTO commentRequestDTO, @PathVariable Long recipeId, HttpSession httpSession) throws IOException {
+        String userId = (String) httpSession.getAttribute("loginEmail");
         CommentResponseDTO result = commentService.create(commentRequestDTO,userId,recipeId);
-        return ResponseEntity.ok().body(result);
+        log.info(userId + "님이 "+ recipeId+"번 글에 후기를 남기셨습니다.");
+        return ResponseEntity.ok().body("후기 생성");
     }
     // 후기 조회
     @GetMapping("/board/{recipeId}/comment")
@@ -32,10 +33,10 @@ public class CommentController {
         List<CommentResponseDTO> result = commentService.commentList(recipeId);
         return ResponseEntity.ok().body(result);
     }
-    // 후기 삭제
-    @PostMapping("/board/delete/{recipeId}")
-    public ResponseEntity<?> delete(@PathVariable Long recipeId){
-        String result = commentService.delete(recipeId);
+    // 후기 전체삭제
+    @PostMapping("/board/delete/{commentId}")
+    public ResponseEntity<?> delete(@PathVariable Long commentId){
+        String result = commentService.delete(commentId);
         return ResponseEntity.ok().body(result);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.Likelion_6_BackEnd.domain.recipe.entity;
 
+import com.example.Likelion_6_BackEnd.domain.member.entity.Member;
 import com.example.Likelion_6_BackEnd.global.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -21,11 +22,10 @@ public class Recipe extends BaseEntity {
     private String kcal; // 칼로리
     private String intro;
     private Double average;
-    @OneToMany
-    private List<RecipeIngredient> recipeIngredientList;
-    /*
-    * user 객체 추가(many to one)
-    * */
+//    @OneToMany
+//    private List<RecipeIngredient> recipeIngredientList;
+    @ManyToOne
+    private Member user;
     protected Recipe() {
     }
 
@@ -37,7 +37,7 @@ public class Recipe extends BaseEntity {
         this.cost = cost;
         this.requiredTime = requiredTime;
     }
-    public Recipe(Recipe recipe, String kcal, String content, Double average){
+    public Recipe(Recipe recipe, String kcal, String content, Double average, Member user){
         this.title = recipe.getTitle();
         this.intro = recipe.getIntro();
         this.level = recipe.getLevel();
@@ -47,6 +47,7 @@ public class Recipe extends BaseEntity {
         this.content = content;
         this.kcal = kcal;
         this.average = average;
+        this.user = user;
     }
 
     public void updateAverage(Recipe recipe, Double average){

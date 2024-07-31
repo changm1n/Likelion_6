@@ -9,7 +9,7 @@ import lombok.*;
 @ToString
 public class MemberDto {
 
-    private String Userid;
+    private String userEmail;
 
     private String password;
 
@@ -18,7 +18,7 @@ public class MemberDto {
     public static MemberDto toMemberDto(Member member) {
         MemberDto memberDto = new MemberDto();
 
-        memberDto.setUserid(memberDto.getUserid());
+        memberDto.setUserEmail(member.getUserEmail());
         memberDto.setPassword(member.getPassword());
         memberDto.setNickname(member.getNickname());
 

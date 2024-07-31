@@ -22,6 +22,7 @@ public class RecipeResponseDTO {
         private Integer requiredTime;
         private String kcal;
         private Double average;
+        private String nickname;
 
         public RecipeCreateDTO(Recipe recipe,List<String> recipeImages,List<String> ingredient,List<String> content){
             this.recipeId = recipe.getId();
@@ -36,6 +37,7 @@ public class RecipeResponseDTO {
             this.requiredTime = recipe.getRequiredTime();
             this.kcal = recipe.getKcal();
             this.average = recipe.getAverage();
+            this.nickname = recipe.getUser().getNickname();
         }
     }
 }

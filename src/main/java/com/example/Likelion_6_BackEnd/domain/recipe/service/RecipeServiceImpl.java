@@ -3,11 +3,15 @@ package com.example.Likelion_6_BackEnd.domain.recipe.service;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.example.Likelion_6_BackEnd.domain.comment.entity.Comment;
+import com.example.Likelion_6_BackEnd.domain.comment.repository.CommentRepository;
 import com.example.Likelion_6_BackEnd.domain.comment.service.CommentService;
 import com.example.Likelion_6_BackEnd.domain.image.entity.Image;
 import com.example.Likelion_6_BackEnd.domain.image.repository.ImageRepository;
+import com.example.Likelion_6_BackEnd.domain.member.entity.Member;
+import com.example.Likelion_6_BackEnd.domain.member.repository.MemberRepository;
 import com.example.Likelion_6_BackEnd.domain.recipe.dto.RecipeRequestDTO;
 import com.example.Likelion_6_BackEnd.domain.recipe.dto.RecipeResponseDTO;
+import com.example.Likelion_6_BackEnd.domain.recipe.dto.RecipeSearchDTO;
 import com.example.Likelion_6_BackEnd.domain.recipe.entity.Ingredient;
 import com.example.Likelion_6_BackEnd.domain.recipe.entity.Recipe;
 import com.example.Likelion_6_BackEnd.domain.recipe.entity.RecipeIngredient;
@@ -33,8 +37,8 @@ public class RecipeServiceImpl implements RecipeService{
     private final IngredientRepository ingredientRepository;
     private final RecipeIngredientRepository recipeIngredientRepository;
     private final ImageRepository imageRepository;
-
-    private final CommentService commentService;
+    private final MemberRepository memberRepository;
+    private final CommentRepository commentRepository;
 
     private final AmazonS3 amazonS3;
     @Value("yoribogo")
@@ -43,18 +47,18 @@ public class RecipeServiceImpl implements RecipeService{
     //게시글 생성
     @Transactional
     @Override
-    public RecipeResponseDTO.RecipeCreateDTO create(RecipeRequestDTO.RecipeCreateDTO recipeCreateDTO) throws IOException{
+    public RecipeResponseDTO.RecipeCreateDTO create(RecipeRequestDTO.RecipeCreateDTO recipeCreateDTO,String userEmail) throws IOException{
         Recipe recipe1 = recipeCreateDTO.toEntity();
+        Optional<Member> memberOptional = memberRepository.findByuserEmail(userEmail);
+        Member user = memberOptional.get();
         List<String> recipeList = recipeCreateDTO.getContent();
-        System.out.println(recipeList);
-        System.out.println(recipeCreateDTO.getIngredient());
         //레시피 단계 하나로 합치기
         String combineString = String.join("\n", recipeList);
         //api로 칼로리 가져오기
         String kcal = "abc";
         // 평점 가져오기
         Double average = 0.0;
-        Recipe recipe = new Recipe(recipe1, kcal, combineString,average);
+        Recipe recipe = new Recipe(recipe1, kcal, combineString,average,user);
         recipeRepository.save(recipe);
         //재료 저장
         List<RecipeIngredient> recipeIngredients = new ArrayList<>();
@@ -94,7 +98,7 @@ public class RecipeServiceImpl implements RecipeService{
         String contentCombine = recipeRepository.findContentByRecipeId(recipeId);
         if(recipeOptional.isPresent()){
             Recipe recipe = recipeOptional.get();
-            recipe.updateAverage(recipe, commentService.average(recipeId));
+            recipe.updateAverage(recipe, average(recipeId));
             List<String> imgUrl = imageRepository.findImageUrlsByRecipeId(recipeId);
             List<String> content = Arrays.asList(contentCombine.split("\n"));
             List<String> ingredientList = recipeRepository.findIngredientNamesByRecipeId(recipeId);
@@ -129,7 +133,18 @@ public class RecipeServiceImpl implements RecipeService{
         return imgUrl;
     }
 
-    //재료 필터링
-
+    //검색 기능
+//    public List<RecipeResponseDTO.RecipeCreateDTO> searchList(RecipeSearchDTO recipeSearchDTO){
+//
+//    }
+    // 평점 계산
+    public Double average(Long recipeId){
+        List<Comment> commentList = commentRepository.findByrecipeId(recipeId);
+        double averageScore = commentList.stream()
+                .mapToInt(Comment::getScore)
+                .average()
+                .orElse(0.0);
+        return averageScore;
+    }
 
 }

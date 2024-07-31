@@ -8,6 +8,7 @@ import com.example.Likelion_6_BackEnd.domain.member.entity.Member;
 import com.example.Likelion_6_BackEnd.domain.member.repository.MemberRepository;
 import com.example.Likelion_6_BackEnd.domain.recipe.entity.Recipe;
 import com.example.Likelion_6_BackEnd.domain.recipe.repository.RecipeRepository;
+import com.example.Likelion_6_BackEnd.domain.recipe.service.RecipeService;
 import com.example.Likelion_6_BackEnd.domain.recipe.service.RecipeServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +36,7 @@ public class CommentService {
     public CommentResponseDTO create(CommentRequestDTO commentRequestDTO, String userId,Long recipeId) throws IOException {
         Optional<Recipe> recipe1 = recipeRepository.findById(recipeId);
         String imgUrl = recipeService.upload(commentRequestDTO.getImage());
-        Optional<Member> member = memberRepository.findByUserid(userId);
+        Optional<Member> member = memberRepository.findByuserEmail(userId);
         String nickname = member.get().getNickname();
         Integer score = commentRequestDTO.getScore();
         if(recipe1.isPresent()){
@@ -57,6 +58,7 @@ public class CommentService {
     public CommentResponseDTO convertToDTO(Comment comment){
         return new CommentResponseDTO(comment);
     }
+    @Transactional
     //후기 삭제
     public String delete(Long commentId){
         Optional<Comment> commentOptional = commentRepository.findById(commentId);
@@ -69,15 +71,5 @@ public class CommentService {
         else{
             return null;
         }
-    }
-
-    // 평점 계산
-    public Double average(Long recipeId){
-        List<Comment> commentList = commentRepository.findByrecipeId(recipeId);
-        double averageScore = commentList.stream()
-                .mapToInt(Comment::getScore)
-                .average()
-                .orElse(0.0);
-        return averageScore;
     }
 }

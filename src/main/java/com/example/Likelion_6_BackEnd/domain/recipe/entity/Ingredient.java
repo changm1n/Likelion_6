@@ -12,8 +12,8 @@ public class Ingredient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @OneToMany
-    private List<RecipeIngredient> recipeIngredientList;
+//    @OneToMany
+//    private List<RecipeIngredient> recipeIngredientList;
 
     protected Ingredient(){
     }

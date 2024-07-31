@@ -14,13 +14,14 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    public void save(MemberDto memberDto) {
+    public MemberDto save(MemberDto memberDto) {
         Member member = Member.toMember(memberDto);
         memberRepository.save(member);
+        return MemberDto.toMemberDto(member);
     }
 
     public MemberDto login(MemberDto memberDto) {
-        Optional<Member> byUserid = memberRepository.findByUserid(memberDto.getUserid());
+        Optional<Member> byUserid = memberRepository.findByuserEmail(memberDto.getUserEmail());
         if (byUserid.isPresent()) {
             Member member = byUserid.get();
             if (member.getPassword().equals(memberDto.getPassword())) {
