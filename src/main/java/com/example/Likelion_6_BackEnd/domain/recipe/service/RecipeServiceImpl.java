@@ -86,13 +86,15 @@ public class RecipeServiceImpl implements RecipeService{
         }
         return new RecipeResponseDTO.RecipeCreateDTO(recipe,imgUrlList,recipeCreateDTO.getIngredient(),recipeList);
     }
-
+    @Transactional
+    @Override
     //게시글 조회(하나)
     public RecipeResponseDTO.RecipeCreateDTO mainRecipe(Long recipeId){
         Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
         String contentCombine = recipeRepository.findContentByRecipeId(recipeId);
         if(recipeOptional.isPresent()){
             Recipe recipe = recipeOptional.get();
+            recipe.updateAverage(recipe, commentService.average(recipeId));
             List<String> imgUrl = imageRepository.findImageUrlsByRecipeId(recipeId);
             List<String> content = Arrays.asList(contentCombine.split("\n"));
             List<String> ingredientList = recipeRepository.findIngredientNamesByRecipeId(recipeId);

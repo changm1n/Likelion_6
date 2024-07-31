@@ -48,4 +48,16 @@ public class Recipe extends BaseEntity {
         this.kcal = kcal;
         this.average = average;
     }
+
+    public void updateAverage(Recipe recipe, Double average){
+        this.title = recipe.getTitle();
+        this.content = recipe.getContent();
+        this.requiredTime = recipe.getRequiredTime();
+        this.cost = recipe.getCost();
+        this.level = recipe.getLevel();
+        this.servings = recipe.getServings();
+        this.kcal = recipe.getKcal();
+        this.intro = recipe.getIntro();
+        this.average = average;
+    }
 }

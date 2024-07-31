@@ -13,7 +13,7 @@ public interface RecipeService {
     //레시피 삭제
 
     //레시피 조회
-
+    RecipeResponseDTO.RecipeCreateDTO mainRecipe(Long recipeId);
     //레시피 검색결과
 
     //칼로리 api
