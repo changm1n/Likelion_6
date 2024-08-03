@@ -2,8 +2,10 @@ package com.example.Likelion_6_BackEnd.domain.member.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class IndexController {
 
     @GetMapping("/")
@@ -11,8 +13,10 @@ public class IndexController {
         return "index";
     }
 
+    /*
     @GetMapping("/user/login")
     public String login() {
         return "login";
     }
+     */
 }

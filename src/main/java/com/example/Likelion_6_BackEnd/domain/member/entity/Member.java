@@ -4,9 +4,11 @@ import com.example.Likelion_6_BackEnd.domain.member.dto.MemberDto;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
+@Table(name = "member")
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Member {
@@ -16,7 +18,7 @@ public class Member {
     private Long id;
 
     @Column(unique = true, nullable = false)
-    private String Userid;
+    private String userid;
 
     @Column(nullable = false)
     private String password;
@@ -24,13 +26,11 @@ public class Member {
     @Column(length = 50, nullable = false)
     private String nickname;
 
-    public static Member toMember(MemberDto memberDto) {
-        Member member = new Member();
+    @Column(nullable = false)
+    private String purpose;
 
-        member.Userid = memberDto.getUserid();
-        member.password = memberDto.getPassword();
-        member.nickname = memberDto.getNickname();
-
-        return member;
-    }
+    @ElementCollection
+    @CollectionTable(name = "preferences", joinColumns = @JoinColumn(name = "member_id"))
+    @Column(name = "preference")
+    private List<String> preference;
 }
