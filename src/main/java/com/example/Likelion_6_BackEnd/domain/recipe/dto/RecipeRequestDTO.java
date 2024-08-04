@@ -14,14 +14,18 @@ public class RecipeRequestDTO {
         private String intro;
         private Integer level;
         private Integer servings;
-        private Integer cost;
-        private List<String> ingredient;
+        private String cost;
+        private List<List<String>> fullRecipe;
+        //private List<String> ingredient;
         private List<String> content;
         private Integer requiredTime;
-        private List<MultipartFile> recipeImages;
+        private String purpose;
+        private String preference;
+        private String menu;
+        //private List<MultipartFile> recipeImages;
 
         public Recipe toEntity(){
-            return new Recipe(this.title,this.intro, this.level, this.servings,this.cost, this.requiredTime);
+            return new Recipe(this.title,this.intro, this.level, this.servings,this.cost, this.requiredTime, this.purpose, this.preference,this.menu);
         }
     }
 
@@ -31,7 +35,7 @@ public class RecipeRequestDTO {
         private String intro;
         private Integer level;
         private Integer servings;
-        private Integer cost;
+        private String cost;
         private List<String> content;
         private Integer requiredTime;
     }

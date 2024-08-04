@@ -35,13 +35,13 @@ public class CommentService {
     //후기 생성
     public CommentResponseDTO create(CommentRequestDTO commentRequestDTO, String userId,Long recipeId) throws IOException {
         Optional<Recipe> recipe1 = recipeRepository.findById(recipeId);
-        String imgUrl = recipeService.upload(commentRequestDTO.getImage());
+        //String imgUrl = recipeService.upload(commentRequestDTO.getImage());
         Optional<Member> member = memberRepository.findByuserEmail(userId);
         String nickname = member.get().getNickname();
         Integer score = commentRequestDTO.getScore();
         if(recipe1.isPresent()){
             Recipe recipe = recipe1.get();
-            Comment comment = new Comment(commentRequestDTO.getComment(), commentRequestDTO.getScore() ,recipe ,nickname,imgUrl);
+            Comment comment = new Comment(commentRequestDTO.getComment(), commentRequestDTO.getScore() ,recipe ,nickname/*,imgUrl*/);
             commentRepository.save(comment);
             return new CommentResponseDTO(comment);
         }

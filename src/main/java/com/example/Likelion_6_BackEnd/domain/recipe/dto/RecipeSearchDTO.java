@@ -8,6 +8,6 @@ import java.util.List;
 public class RecipeSearchDTO {
     private List<String> ingredientList;
     private String purpose;
-    private String category;
+    private String preference;
     private String cost;
 }

@@ -3,13 +3,13 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/Likelion_6
-    username: ${MYSQL_USERNAME}
-    password: ${MYSQL_PASSWORD}
+    url:
+    username: admin
+    password: yoribogo
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         show_sql: true
@@ -20,8 +20,8 @@ cloud:
     s3:
       bucket: yoribogo
     credentials:
-      access-key: ${S3_ACCESS_KEY}
-      secret-key: ${S3_SECRET_KEY}
+      access-key:
+      secret-key:
     region:
       static: ap-northeast-2
       auto: false

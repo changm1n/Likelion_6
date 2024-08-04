@@ -1,37 +1,12 @@
 package com.example.Likelion_6_BackEnd.domain.member.service;
 
+import com.example.Likelion_6_BackEnd.domain.member.dto.LoginDTO;
 import com.example.Likelion_6_BackEnd.domain.member.dto.MemberDto;
-import com.example.Likelion_6_BackEnd.domain.member.entity.Member;
-import com.example.Likelion_6_BackEnd.domain.member.repository.MemberRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import com.example.Likelion_6_BackEnd.domain.member.dto.SurveyDTO;
 
-import java.util.Optional;
+public interface MemberService {
+    MemberDto joinMember(MemberDto memberDto);
 
-@RequiredArgsConstructor
-@Service
-public class MemberService {
-
-    private final MemberRepository memberRepository;
-
-    public MemberDto save(MemberDto memberDto) {
-        Member member = Member.toMember(memberDto);
-        memberRepository.save(member);
-        return MemberDto.toMemberDto(member);
-    }
-
-    public MemberDto login(MemberDto memberDto) {
-        Optional<Member> byUserid = memberRepository.findByuserEmail(memberDto.getUserEmail());
-        if (byUserid.isPresent()) {
-            Member member = byUserid.get();
-            if (member.getPassword().equals(memberDto.getPassword())) {
-                MemberDto dto = MemberDto.toMemberDto(member);
-                return dto;
-            } else {
-                return null;
-            }
-        } else {
-            return null;
-        }
-    }
+    LoginDTO.loginResponseDTO login(LoginDTO.loginRequestDTO loginDTO);
+    SurveyDTO survey(SurveyDTO surveyDTO, String userEmail);
 }
