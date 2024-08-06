@@ -22,6 +22,7 @@ public class Recipe extends BaseEntity {
     private Integer servings; //인분
     private String kcal; // 칼로리
     private String intro;
+    private String introUrl;
     private Double average;
     private String purpose;
     private String preference;
@@ -34,7 +35,7 @@ public class Recipe extends BaseEntity {
     protected Recipe() {
     }
 
-    public Recipe(String title, String intro, Integer level, Integer servings,String cost,Integer requiredTime,String purpose, String preference,String menu){
+    public Recipe(String title, String intro, Integer level, Integer servings,String cost,Integer requiredTime,String purpose, String preference,String menu, String introUrl){
         this.title = title;
         this.intro = intro;
         this.level = level;
@@ -44,10 +45,12 @@ public class Recipe extends BaseEntity {
         this.purpose = purpose;
         this.preference = preference;
         this.menu = menu;
+        this.introUrl = introUrl;
     }
     public Recipe(Recipe recipe, String fullRecipe,String kcal, String content, Double average, Member user){
         this.title = recipe.getTitle();
         this.intro = recipe.getIntro();
+        this.introUrl = recipe.getIntroUrl();
         this.level = recipe.getLevel();
         this.fullRecipe = fullRecipe;
         this.servings = recipe.getServings();
@@ -76,5 +79,6 @@ public class Recipe extends BaseEntity {
         this.preference = recipe.getPreference();
         this.average = average;
         this.menu = recipe.getMenu();
+        this.introUrl = recipe.getIntroUrl();
     }
 }

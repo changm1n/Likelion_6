@@ -35,7 +35,7 @@ public class CommentService {
     //후기 생성
     public CommentResponseDTO create(CommentRequestDTO commentRequestDTO, String userId,Long recipeId) throws IOException {
         Optional<Recipe> recipe1 = recipeRepository.findById(recipeId);
-        //String imgUrl = recipeService.upload(commentRequestDTO.getImage());
+//        String imgUrl = recipeService.upload(commentRequestDTO.getImage());
         Optional<Member> member = memberRepository.findByuserEmail(userId);
         String nickname = member.get().getNickname();
         Integer score = commentRequestDTO.getScore();

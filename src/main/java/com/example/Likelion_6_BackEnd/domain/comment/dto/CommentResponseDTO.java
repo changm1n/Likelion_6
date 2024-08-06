@@ -11,14 +11,14 @@ public class CommentResponseDTO {
     private String nickname;
     private String comment;
     private Integer score;
-    //private String image;
+//    private String image;
     private LocalDate date;
 
     public CommentResponseDTO(Comment comment){
         this.nickname = comment.getNickname();
         this.comment = comment.getComment();
         this.score = comment.getScore();
-        //this.image = comment.getImgUrl();
+//        this.image = comment.getImgUrl();
         this.date = comment.getCreatedTime().toLocalDate();
     }
 }

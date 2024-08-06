@@ -13,7 +13,7 @@ public class Comment extends BaseEntity {
     private Long id;
     private String nickname;
     private String comment;
-    //private String imgUrl;
+//    private String imgUrl;
     private Integer score;
     @ManyToOne
     private Recipe recipe;
@@ -25,6 +25,6 @@ public class Comment extends BaseEntity {
         this.score = score;
         this.recipe = recipe;
         this.nickname = userId;
-        //this.imgUrl = imgUrl;
+//        this.imgUrl = imgUrl;
     }
 }

@@ -12,6 +12,7 @@ public class RecipeRequestDTO {
     public static class RecipeCreateDTO{
         private String title;
         private String intro;
+        private String introUrl;
         private Integer level;
         private Integer servings;
         private String cost;
@@ -22,10 +23,10 @@ public class RecipeRequestDTO {
         private String purpose;
         private String preference;
         private String menu;
-        //private List<MultipartFile> recipeImages;
+//        private List<MultipartFile> recipeImages;
 
         public Recipe toEntity(){
-            return new Recipe(this.title,this.intro, this.level, this.servings,this.cost, this.requiredTime, this.purpose, this.preference,this.menu);
+            return new Recipe(this.title,this.intro, this.level, this.servings,this.cost, this.requiredTime, this.purpose, this.preference,this.menu,this.introUrl);
         }
     }
 

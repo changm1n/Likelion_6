@@ -104,7 +104,7 @@ public class RecipeServiceImpl implements RecipeService{
         if(recipeOptional.isPresent()){
             Recipe recipe = recipeOptional.get();
             recipe.updateAverage(recipe, average(recipeId));
-            //List<String> imgUrl = imageRepository.findImageUrlsByRecipeId(recipeId);
+//            List<String> imgUrl = imageRepository.findImageUrlsByRecipeId(recipeId);
             List<String> content = Arrays.asList(contentCombine.split("\n"));
             //List<String> ingredientList = recipeRepository.findIngredientNamesByRecipeId(recipeId);
             String combineFullRecipe = recipe.getFullRecipe();
@@ -248,7 +248,7 @@ public class RecipeServiceImpl implements RecipeService{
     public List<RecipeResponseDTO.RecipeCreateDTO> recipeToDto(List<Recipe> recipeList){
         List<RecipeResponseDTO.RecipeCreateDTO> dtoList = new ArrayList<>();
         for(Recipe recipe : recipeList){
-            //List<String> imgUrl = imageRepository.findImageUrlsByRecipeId(recipe.getId());
+            List<String> imgUrl = imageRepository.findImageUrlsByRecipeId(recipe.getId());
             //List<String> ingredient = recipeRepository.findIngredientNamesByRecipeId(recipe.getId());
             List<String> content = getcontent(recipe);
             List<List<String>> fullRecipe = convertToArray(recipe.getFullRecipe());

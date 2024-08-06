@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/user")
+@RequestMapping("/api")
 @Slf4j
 public class MemberController {
 
@@ -21,7 +21,7 @@ public class MemberController {
     private final MemberRepository memberRepository;
 
     //회원가입
-    @PostMapping("/save")
+    @PostMapping("/user/save")
     public ResponseEntity<?> joinMember(@RequestBody MemberDto memberDto) {
         log.info("MemberController.save");
         log.info("memberDto = " + memberDto);
@@ -30,11 +30,12 @@ public class MemberController {
         return ResponseEntity.ok().body(result);
     }
     //로그인
-    @PostMapping("/login")
+    @PostMapping("/user/login")
     public ResponseEntity<?> login(@RequestBody LoginDTO.loginRequestDTO loginDTO, HttpSession session) {
         LoginDTO.loginResponseDTO loginResult = memberService.login(loginDTO);
         if (loginResult != null) {
             session.setAttribute("loginEmail", loginResult.getUserEmail());
+            log.info((String)session.getAttribute("loginEmail"));
             log.info(loginResult.getUserEmail()+"님이 로그인에 성공했습니다.");
             return ResponseEntity.ok().body(loginResult.getNickname());
         } else {
@@ -42,7 +43,7 @@ public class MemberController {
         }
     }
     //설문조사 등록
-    @PostMapping("/survey")
+    @PostMapping("/user/survey")
     public ResponseEntity<?> survey(@RequestBody SurveyDTO surveyDTO, HttpSession session){
         String userEmail = (String)session.getAttribute("loginEmail");
         SurveyDTO result = memberService.survey(surveyDTO, userEmail);

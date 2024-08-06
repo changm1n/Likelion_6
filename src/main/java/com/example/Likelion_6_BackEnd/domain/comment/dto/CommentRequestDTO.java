@@ -7,5 +7,5 @@ import org.springframework.web.multipart.MultipartFile;
 public class CommentRequestDTO {
     private String comment;
     private Integer score;
-    //private MultipartFile image;
+//    private MultipartFile image;
 }

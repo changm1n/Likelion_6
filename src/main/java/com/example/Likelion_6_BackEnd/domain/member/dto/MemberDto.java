@@ -4,8 +4,8 @@ import com.example.Likelion_6_BackEnd.domain.member.entity.Member;
 import lombok.*;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class MemberDto {
 
     private String userEmail;
